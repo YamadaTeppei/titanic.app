@@ -1,9 +1,23 @@
-<!-- {% extends"layout.html" %}
-{% block body %} -->
+{% extends"layout.html" %}
+{% block body %}
     <header class="row justify-content-center">
       <h2>traindata</h2>
     </header>
-    <div class="row justify-content-center">
-      {{ titanic_train }}
+    <div class="row justify-content-center" id="output_csv">
     </div>
-<!-- {% endblock %} -->
+
+    <script>
+      const outputElement = document.getElementById('output_csv');
+
+      function getCsvData(dataPath) {
+        const request = new XMLHttpRequest();
+      request.addEventListener('load', (event) => {
+        const response = event.target.responseText;
+      outputElement.innerHTML = response;
+      });
+      request.open('GET', dataPath, true);
+      request.send();
+      }
+      getCsvData({{ titanic_train }});
+    </script>
+{% endblock %}
